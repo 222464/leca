@@ -20,7 +20,11 @@ PYBIND11_MODULE(leca, m) {
         .def_readwrite("discount", &Leca::discount)
         .def_readwrite("traceDecay", &Leca::traceDecay)
         .def_readwrite("epsilon", &Leca::epsilon)
-        .def("init", &Leca::init)
+        .def("init", &Leca::init,
+            py::arg("width"),
+            py::arg("height"),
+            py::arg("seed") = 1234
+        )
         .def("step", &Leca::step,
             py::arg("inputs"),
             py::arg("reward"),
