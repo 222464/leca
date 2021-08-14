@@ -45,14 +45,12 @@ public:
     float lr;
     float discount;
     float traceDecay;
-    float epsilon;
 
     Leca()
     :
-    lr(0.001f),
+    lr(0.1f),
     discount(0.99f),
-    traceDecay(0.97f),
-    epsilon(0.001f)
+    traceDecay(0.97f)
     {}
 
     void init(
