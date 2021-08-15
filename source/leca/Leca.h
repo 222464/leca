@@ -20,14 +20,18 @@ inline float sigmoid(
 class Leca {
 public:
     struct Cell {
-        std::array<float, 16> values;
-        std::array<float, 16> traces;
+        std::array<float, 8> values;
+        std::array<float, 16> actions;
+        std::array<float, 16> valueTraces;
+        std::array<float, 16> actionTraces;
 
         bool on;
+        float valuePrev;
 
         Cell()
         :
-        on(false)
+        on(false),
+        valuePrev(0.0f)
         {}
     };
 
@@ -40,17 +44,17 @@ private:
     std::vector<Cell> cells;
 
 public:
-    float lr;
+    float vlr;
+    float alr;
     float discount;
     float traceDecay;
-    float epsilon;
 
     Leca()
     :
-    lr(0.1f),
+    vlr(0.01f),
+    alr(0.1f),
     discount(0.99f),
-    traceDecay(0.97f),
-    epsilon(0.001f)
+    traceDecay(0.97f)
     {}
 
     void init(
