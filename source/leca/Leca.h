@@ -51,10 +51,10 @@ public:
 
     Leca()
     :
-    vlr(0.01f),
+    vlr(0.1f),
     alr(0.1f),
     discount(0.99f),
-    traceDecay(0.97f)
+    traceDecay(0.95f)
     {}
 
     void init(

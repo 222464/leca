@@ -87,12 +87,12 @@ void Leca::step(
             }
 
             if (cells[i].on) {
-                cells[i].actionTraces[cellIndex0] += -prob;
-                cells[i].actionTraces[cellIndex1] += 1.0f - prob;
+                cells[i].actionTraces[cellIndex0] = -prob;
+                cells[i].actionTraces[cellIndex1] = 1.0f - prob;
             }
             else {
-                cells[i].actionTraces[cellIndex0] += 1.0f - prob;
-                cells[i].actionTraces[cellIndex1] += -prob;
+                cells[i].actionTraces[cellIndex0] = 1.0f - prob;
+                cells[i].actionTraces[cellIndex1] = -prob;
             }
         }
     }
