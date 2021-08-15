@@ -54,27 +54,26 @@ void Leca::step(
 
             int cellIndex1 = cellIndex0 | (1 << 3);
 
-            float prob = sigmoid(cells[i].values[cellIndex1] - cells[i].values[cellIndex0]);
+            cells[i].on = cells[i].values[cellIndex1] > cells[i].values[cellIndex0];
 
-            cells[i].on = dist01(rng) < prob;
+            if (dist01(rng) < epsilon)
+                cells[i].on = !cells[i].on;
 
             int cellIndex = cells[i].on ? cellIndex1 : cellIndex0;
 
-            float delta = lr * (reward + discount * std::max(cells[i].values[cellIndex1], cells[i].values[cellIndex0]) - cells[i].value);
-
-            cells[i].value = cells[i].values[cellIndex];
+            float target = reward + discount * std::max(cells[i].values[cellIndex1], cells[i].values[cellIndex0]);
 
             // Traces
-            for (int j = 0; j < cells[i].traces.size(); j++) {
+            for (int j = 0; j < cells[i].values.size(); j++) {
                 if (learnEnabled)
-                    cells[i].values[j] += delta * cells[i].traces[j];
+                    cells[i].values[j] += lr * (target - cells[i].values[j]) * cells[i].traces[j];
 
                 cells[i].traces[j] *= traceDecay;
             }
 
             if (cells[i].on) {
-                cells[i].traces[cellIndex1] = 1.0f;
                 cells[i].traces[cellIndex0] = 0.0f;
+                cells[i].traces[cellIndex1] = 1.0f;
             }
             else {
                 cells[i].traces[cellIndex0] = 1.0f;

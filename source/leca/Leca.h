@@ -24,12 +24,10 @@ public:
         std::array<float, 16> traces;
 
         bool on;
-        float value;
 
         Cell()
         :
-        on(false),
-        value(0.0f)
+        on(false)
         {}
     };
 
@@ -45,12 +43,14 @@ public:
     float lr;
     float discount;
     float traceDecay;
+    float epsilon;
 
     Leca()
     :
     lr(0.1f),
     discount(0.99f),
-    traceDecay(0.97f)
+    traceDecay(0.97f),
+    epsilon(0.001f)
     {}
 
     void init(

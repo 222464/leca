@@ -19,6 +19,7 @@ PYBIND11_MODULE(leca, m) {
         .def_readwrite("lr", &Leca::lr)
         .def_readwrite("discount", &Leca::discount)
         .def_readwrite("traceDecay", &Leca::traceDecay)
+        .def_readwrite("epsilon", &Leca::epsilon)
         .def("init", &Leca::init,
             py::arg("width"),
             py::arg("height"),
